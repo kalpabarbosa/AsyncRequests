@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AsyncRequests.MainPage"
+             Padding="10, 20, 10, 10"
+             Title="Github User Info">
+    <StackLayout>
+        <StackLayout
+            Orientation="Horizontal"
+            Padding="0, 0, 0, 10">
+            <Image
+                Source="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                HeightRequest="65"
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
+            <Image
+                Source="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png"
+                HeightRequest="35"
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
+            <Label
+                Text="Usuários"
+                FontSize="Subtitle"
+                TextColor="Black"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="EndAndExpand" />
+        </StackLayout>
+        <Entry
+            Text="{Binding GithubUsername}"
+            Placeholder="Github username"
+            HorizontalOptions="FillAndExpand" />
+        <StackLayout
+            Orientation="Horizontal">
+            <Button x:Name="downloadButton"
+                Text="Buscar"
+                IsEnabled="{Binding IsDownloadButtonEnabled}"
+                Clicked="downloadButton_Clicked"
+                HorizontalOptions="Start" />
+            <ActivityIndicator
+                Color="DarkGray"
+                IsRunning="{Binding Downloading}"
+                HorizontalOptions="StartAndExpand" />
+            <Label
+                Text="{Binding SystemInfoLabel}"
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+
+        <Label
+            Text="{Binding User.Url}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+
+        <Grid
+            Padding="0, 10, 0, 0"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*" />
+                <ColumnDefinition Width="0.7*" />
+            </Grid.ColumnDefinitions>
+            <Image
+                Grid.Column="0"
+                Source="{Binding User.AvatarUrl}"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="TapGestureRecognizer_Tapped"
+                        NumberOfTapsRequired="1" />
+                </Image.GestureRecognizers>
+            </Image>
+            <StackLayout
+                IsVisible="{Binding HasUser}"
+                Grid.Column="1">
+                <Label
+                    Text="{Binding User.Name}"
+                    VerticalOptions="Start"
+                    HorizontalOptions="StartAndExpand" />
+                <Label
+                    Text="{Binding User.Login}"
+                    VerticalOptions="Start"
+                    HorizontalOptions="StartAndExpand" />
+                <Label
+                    Text="{Binding User.CreatedAt}"
+                    VerticalOptions="Start"
+                    HorizontalOptions="StartAndExpand" />
+                <Label
+                    Text="{Binding User.UpdatedAt}"
+                    VerticalOptions="Start"
+                    HorizontalOptions="StartAndExpand" />
+            </StackLayout>
+        </Grid>
+    </StackLayout>
+</ContentPage>
